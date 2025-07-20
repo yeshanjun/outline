@@ -36,7 +36,7 @@ allow(User, "read", Document, (actor, document) =>
 
 allow(User, ["listRevisions", "listViews"], Document, (actor, document) =>
   or(
-    and(can(actor, "read", document), !actor.isGuest),
+    and(can(actor, "read", document), !actor.isGuest, !actor.isViewer),
     and(can(actor, "update", document), actor.isGuest)
   )
 );

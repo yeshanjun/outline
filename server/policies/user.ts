@@ -16,7 +16,7 @@ allow(User, "listUsers", Team, (actor, team) =>
   and(
     //
     isTeamModel(actor, team),
-    !actor.isGuest
+    !actor.isGuest && !actor.isViewer
   )
 );
 
