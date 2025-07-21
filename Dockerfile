@@ -1,5 +1,5 @@
 # STAGE 1: Build dependencies and application code
-FROM node:22 AS builder
+FROM node:20 AS builder
 
 ARG APP_PATH=/opt/outline
 WORKDIR $APP_PATH
@@ -23,7 +23,7 @@ RUN yarn install --production=true --frozen-lockfile --network-timeout 1000000 &
 # ---
 
 # STAGE 2: Setup the final runner image
-FROM node:22-slim AS runner
+FROM node:20-slim AS runner
 
 ARG APP_PATH=/opt/outline
 WORKDIR $APP_PATH
