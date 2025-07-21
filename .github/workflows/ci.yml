@@ -165,8 +165,9 @@ jobs:
         webpackStatsFile: ./build/app/webpack-stats.json
 
   build-and-push:
-    # 仅在代码推送到 main 分支，并且所有测试都成功后才运行
-    if: github.event_name == 'push' && github.ref == 'refs/heads/main'
+    # 仅在代码推送到 main 分支，并且没有任何前置任务失败或被取消时运行
+    # 这将正确处理因代码未更改而跳过测试的情况
+    if: github.event_name == 'push' && github.ref == 'refs/heads/main' && !failure() && !cancelled()
     needs: [lint, types, test, test-server]
     runs-on: ubuntu-latest
     permissions:
