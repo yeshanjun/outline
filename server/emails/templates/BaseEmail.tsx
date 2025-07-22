@@ -127,6 +127,15 @@ export default abstract class BaseEmail<
       : undefined;
     const data = { ...this.props, notification, ...(bsResponse ?? ({} as S)) };
 
+    if (this.category === EmailMessageCategory.Notification) {
+      Logger.info(
+        "email",
+        `Email ${templateName} not sent as notifications are disabled`,
+        this.props
+      );
+      return;
+    }
+
     if (notification?.viewedAt) {
       Logger.info(
         "email",
